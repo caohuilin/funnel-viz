@@ -1,0 +1,14 @@
+{
+  "name": "funnel-viz",
+  "title": "漏斗图",
+  "description": "漏斗图",
+  "categories": [],
+  "version": "1.0.0",
+  "platformVersion": ">=0.6.1",
+  "authors": [],
+  "type": "visualization",
+  "icon": "static/icon.png",
+  "docsLink": "https://developer.qiniu.com/express",
+  "contents":[],
+  "preview": []
+}

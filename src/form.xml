@@ -1,0 +1,10 @@
+<form>
+  <collapse accordion="true">
+    <panel title="分组1">
+      <input type="text" field="attr1" required="true">
+        <label>属性一</label>
+        <initial-value>attr1</initial-value>
+      </input>
+    </panel>
+  </collapse>
+</form>
