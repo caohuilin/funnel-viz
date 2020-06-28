@@ -15,6 +15,7 @@
   "scripts": {
     "build": "rollup -c",
     "start": "rollup -c -w",
+    "postinstall": "patch-package",
     "platform": "cd platform && yarn install && yarn run start",
     "package": "yarn run build && cp -Rf dist/index.es.js app/appserver/static/visualizations/funnel/visualization.js && cp -Rf dist/index.css app/appserver/static/visualizations/funnel/visualization.css && tar -czvf funnel-viz.tar.gz app"
   },
@@ -56,6 +57,8 @@
     "dist"
   ],
   "dependencies": {
-    "@antv/g2": "^4.0.12"
+    "@antv/g2": "^4.0.12",
+    "@types/lodash-es": "^4.17.3",
+    "lodash-es": "^4.17.15"
   }
 }

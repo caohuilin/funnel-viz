@@ -20,5 +20,5 @@
 
 ### 打包
 
-- 开发完成后，执行 `yarn run package`', 编译最终代码并打包
+- 开发完成后，执行 `yarn run package`, 编译最终代码并打包
 - 上传可视化应用`funnel-viz.tar.gz`至 Pandora 平台

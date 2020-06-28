@@ -1,9 +1,15 @@
 <form>
   <collapse accordion="true">
-    <panel title="分组1">
-      <input type="text" field="attr1" required="true">
-        <label>属性一</label>
-        <initial-value>attr1</initial-value>
+    <panel title="常规">
+      <input type="multiselect" field="metrics" required="true">
+        <label>统计指标</label>
+        <dataset>fields</dataset>
+      </input>
+      <input type="radio" field="direction">
+        <label>方向</label>
+        <initial-value>positive</initial-value>
+        <choice value="positive">正序</choice>
+        <choice value="negative">逆序</choice>
       </input>
     </panel>
   </collapse>
