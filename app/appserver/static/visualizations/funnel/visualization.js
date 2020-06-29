@@ -9122,7 +9122,7 @@ define(['exports', '@qn-pandora/visualization-sdk'], function (exports, visualiz
      * @fileoverview G 的基础接口定义和所有的抽象类
      * @author dxq613@gmail.com
      */
-    var pkg = require('../package.json');
+    var pkg = { version: "1.0.0"};
     var version = pkg.version;
 
     var constant$1 = createCommonjsModule(function (module, exports) {
@@ -34047,7 +34047,7 @@ define(['exports', '@qn-pandora/visualization-sdk'], function (exports, visualiz
         return Canvas;
     }(Canvas));
 
-    var pkg$1 = require('../package.json');
+    var pkg$1 = { version: "1.0.0"};
     var version$1 = pkg$1.version;
 
     var CanvasEngine = /*#__PURE__*/Object.freeze({
@@ -36077,7 +36077,7 @@ define(['exports', '@qn-pandora/visualization-sdk'], function (exports, visualiz
         return Canvas;
     }(Canvas));
 
-    var pkg$2 = require('../package.json');
+    var pkg$2 = { version: "1.0.0"};
     var version$2 = pkg$2.version;
 
     var SVGEngine = /*#__PURE__*/Object.freeze({
@@ -50090,23 +50090,24 @@ define(['exports', '@qn-pandora/visualization-sdk'], function (exports, visualiz
         }
         VisualizationStore.prototype.getInitialDataParams = function () {
             return {
-                outputMode: visualizationSdk.OutputMode.JsonCols,
+                outputMode: visualizationSdk.OutputMode.JsonRows,
                 count: 10000
             };
         };
         VisualizationStore.prototype.updateView = function (dataset, config) {
             // 根据 dataset 数据 和 config 实现可视化逻辑
-            var metrics = config.metrics, configColors = config.colors, _a = config.shape, shape = _a === void 0 ? "funnel" : _a;
+            var metric = config.metric, configColors = config.colors, _a = config.shape, shape = _a === void 0 ? "funnel" : _a;
             var fields = dataset.fields, rows = dataset.rows;
-            if (!metrics || !metrics.length || !rows.length) {
+            if (!metric || !metric.length || !rows.length) {
                 return;
             }
             var colors$1 = configColors ? configColors.split(",") : "";
-            var data = sortBy_1(metrics.map(function (metric) {
+            var data = sortBy_1(metric.map(function (metric) {
                 var index = fields.findIndex(function (field) { return field.name === metric; });
                 return {
                     metric: metric,
-                    value: get_1(rows, [rows.length - 1, index]),
+                    value: get_1(rows, [rows.length - 1, index]) ||
+                        get_1(rows, [rows.length - 1, index, 0]),
                     color: get_1(colors$1, index) || colors[index % colors.length]
                 };
             }), function (data) { return -data.value; });

@@ -15,25 +15,30 @@ export default class VisualizationStore extends VisualizationBase {
 
   getInitialDataParams() {
     return {
-      outputMode: OutputMode.JsonCols,
+      outputMode: OutputMode.JsonRows,
       count: 10000
     };
   }
 
   updateView(dataset: any, config: IKeyValues) {
     // 根据 dataset 数据 和 config 实现可视化逻辑
-    const { metrics, colors: configColors, shape = "funnel" } = config;
     const { fields, rows } = dataset;
-    if (!metrics || !metrics.length || !rows.length) {
+    let { metric, colors: configColors, shape = "funnel" } = config;
+    if (!rows.length) {
       return;
+    }
+    if (!metric || !metric.length) {
+      metric = fields.map((field: any) => field.name);
     }
     const colors = configColors ? configColors.split(",") : "";
     const data = sortBy(
-      metrics.map((metric: string) => {
+      metric.map((metric: string) => {
         const index = fields.findIndex((field: any) => field.name === metric);
         return {
           metric,
-          value: get(rows, [rows.length - 1, index]),
+          value:
+            get(rows, [rows.length - 1, index]) ||
+            get(rows, [rows.length - 1, index, 0]),
           color:
             get(colors, index) || defaultColors[index % defaultColors.length]
         };
