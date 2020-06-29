@@ -6,6 +6,7 @@ import {
 } from "@qn-pandora/visualization-sdk";
 import sortBy from "lodash/sortBy";
 import get from "lodash/get";
+import { colors as defaultColors } from "./constants";
 
 import "./styles.less";
 
@@ -21,15 +22,21 @@ export default class VisualizationStore extends VisualizationBase {
 
   updateView(dataset: any, config: IKeyValues) {
     // 根据 dataset 数据 和 config 实现可视化逻辑
-    const { metrics, direction } = config;
+    const { metrics, direction, colors: configColors } = config;
     const { fields, rows } = dataset;
     if (!metrics || !metrics.length || !rows.length) {
       return;
     }
+    const colors = configColors ? configColors.split(",") : "";
     const data = sortBy(
       metrics.map((metric: string) => {
         const index = fields.findIndex((field: any) => field.name === metric);
-        return { metric, value: get(rows, [rows.length - 1, index]) };
+        return {
+          metric,
+          value: get(rows, [rows.length - 1, index]),
+          color:
+            get(colors, index) || defaultColors[index % defaultColors.length]
+        };
       }),
       data => data.value
     );
@@ -57,7 +64,10 @@ export default class VisualizationStore extends VisualizationBase {
       .adjust("symmetric")
       .position("metric*value")
       .shape("pyramid")
-      .color("metric", ["#0050B3", "#1890FF", "#40A9FF", "#69C0FF", "#BAE7FF"])
+      .color(
+        "metric",
+        data.map(d => d.color)
+      )
       .label(
         "metric*value",
         (metric, value) => {

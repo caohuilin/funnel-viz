@@ -11,6 +11,9 @@
         <choice value="positive">正序</choice>
         <choice value="negative">逆序</choice>
       </input>
+      <input type="text" field="colors">
+        <label>颜色(按照指标顺序，用逗号隔开)</label>
+      </input>
     </panel>
   </collapse>
 </form>
