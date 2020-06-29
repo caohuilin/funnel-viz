@@ -23,24 +23,23 @@ export default class VisualizationStore extends VisualizationBase {
   updateView(dataset: any, config: IKeyValues) {
     // 根据 dataset 数据 和 config 实现可视化逻辑
     const { fields, rows } = dataset;
-    let { metric, colors: configColors, shape = "funnel" } = config;
-    if (!rows.length) {
+    let { bucket, metric, shape = "funnel" } = config;
+    if (!bucket || !metric || !rows.length) {
+      console.error("暂无数据");
       return;
     }
-    if (!metric || !metric.length) {
-      metric = fields.map((field: any) => field.name);
-    }
-    const colors = configColors ? configColors.split(",") : "";
     const data = sortBy(
-      metric.map((metric: string) => {
-        const index = fields.findIndex((field: any) => field.name === metric);
+      rows.map((row: any, index: number) => {
+        const metricIndex = fields.findIndex(
+          (field: any) => field.name === metric
+        );
+        const bucketIndex = fields.findIndex(
+          (field: any) => field.name === bucket
+        );
         return {
-          metric,
-          value:
-            get(rows, [rows.length - 1, index]) ||
-            get(rows, [rows.length - 1, index, 0]),
-          color:
-            get(colors, index) || defaultColors[index % defaultColors.length]
+          metric: row[bucketIndex],
+          value: get(row, metricIndex) || get(row, [metricIndex, 0]),
+          color: defaultColors[index % defaultColors.length]
         };
       }),
       data => -data.value
