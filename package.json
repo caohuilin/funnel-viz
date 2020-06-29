@@ -17,7 +17,7 @@
     "start": "rollup -c -w",
     "postinstall": "patch-package",
     "platform": "cd platform && yarn install && yarn run start",
-    "package": "yarn run build && cp -Rf dist/index.es.js app/appserver/static/visualizations/funnel/visualization.js && cp -Rf dist/index.css app/appserver/static/visualizations/funnel/visualization.css && tar -czvf funnel-viz.tar.gz app"
+    "package": "cp -Rf dist/form.xml app/appserver/static/visualizations/funnel/form.xml && cp -Rf dist/index.es.js app/appserver/static/visualizations/funnel/visualization.js && cp -Rf dist/index.css app/appserver/static/visualizations/funnel/visualization.css && tar -czvf funnel-viz.tar.gz app"
   },
   "peerDependencies": {
     "@qn-pandora/visualization-sdk": "^1.2.5",

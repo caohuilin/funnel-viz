@@ -22,7 +22,7 @@ export default class VisualizationStore extends VisualizationBase {
 
   updateView(dataset: any, config: IKeyValues) {
     // 根据 dataset 数据 和 config 实现可视化逻辑
-    const { metrics, direction, colors: configColors } = config;
+    const { metrics, colors: configColors, shape = "funnel" } = config;
     const { fields, rows } = dataset;
     if (!metrics || !metrics.length || !rows.length) {
       return;
@@ -38,11 +38,8 @@ export default class VisualizationStore extends VisualizationBase {
             get(colors, index) || defaultColors[index % defaultColors.length]
         };
       }),
-      data => data.value
+      data => -data.value
     );
-    if (direction === "negative") {
-      data.reverse();
-    }
     this.element.innerHTML = "";
     this.chart = new Chart({
       container: this.element,
@@ -63,7 +60,7 @@ export default class VisualizationStore extends VisualizationBase {
       .interval()
       .adjust("symmetric")
       .position("metric*value")
-      .shape("pyramid")
+      .shape(shape)
       .color(
         "metric",
         data.map(d => d.color)

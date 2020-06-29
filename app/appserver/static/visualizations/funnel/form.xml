@@ -1,16 +1,18 @@
 <form>
-  <collapse defaultActiveKey="none" accordion="true">
-    <panel panelKey="attr1" title="属性1">
-      <input type="text" field="attr1">
-        <label>attr1 label</label>
-        <initial-value>value</initial-value>
+  <collapse accordion="true">
+    <panel title="常规">
+      <input type="multiselect" field="metrics" required="true">
+        <label>统计指标</label>
+        <dataset>fields</dataset>
       </input>
-      <input type="dropdown" field="attr2">
-        <label>选择一个选项</label>
-        <initial-value>one</initial-value>
-        <choice value="one">选项一</choice>
-        <choice value="two">选项二</choice>
-        <choice value="third">选项三</choice>
+      <input type="text" field="colors">
+        <label>颜色(按照指标顺序，用逗号隔开)</label>
+      </input>
+      <input type="radio" field="shape">
+        <label>漏斗形状</label>
+        <initial-value>funnel</initial-value>
+        <choice value="funnel">矩形</choice>
+        <choice value="pyramid">尖角</choice>
       </input>
     </panel>
   </collapse>

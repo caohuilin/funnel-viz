@@ -5,14 +5,14 @@
         <label>统计指标</label>
         <dataset>fields</dataset>
       </input>
-      <input type="radio" field="direction">
-        <label>方向</label>
-        <initial-value>positive</initial-value>
-        <choice value="positive">正序</choice>
-        <choice value="negative">逆序</choice>
-      </input>
       <input type="text" field="colors">
         <label>颜色(按照指标顺序，用逗号隔开)</label>
+      </input>
+      <input type="radio" field="shape">
+        <label>漏斗形状</label>
+        <initial-value>funnel</initial-value>
+        <choice value="funnel">矩形</choice>
+        <choice value="pyramid">尖角</choice>
       </input>
     </panel>
   </collapse>
